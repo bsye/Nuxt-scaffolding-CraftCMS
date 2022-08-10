@@ -1,57 +1,57 @@
 <template>
-    <LinkChecker 
-        :alt="content.title"
-        class="teaser news"
-        :url="content.url" 
-        linkType="entry"
-    >
-        <div class="aspect">
-            <FieldImage
-                :content="content.image"/>
-        </div>
+  <LinkChecker
+    :alt="content.title"
+    class="teaser news"
+    :url="content.url"
+    linkType="entry"
+  >
+    <div class="aspect">
+      <FieldImage :content="content.image" />
+    </div>
 
-        <h5>{{ castDate }}</h5>
-        <h3>{{ content.title }}</h3>
-    </LinkChecker>
+    <h5>{{ castDate }}</h5>
+    <h3>{{ content.title }}</h3>
+  </LinkChecker>
 </template>
 
 <script>
 export default {
-    props: {
-        content: {
-            title: {
-                type: String,
-                required: true,
-            },
+  props: {
+    content: {
+      title: {
+        type: String,
+        required: true,
+      },
 
-            date: {
-                type: String,
-                required: true,
-            },
-    
-            url: {
-                type: String,
-                required: true,
-            },
-    
-            image: {
-                type: String,
-                required: true,
-            },
-        }
+      date: {
+        type: String,
+        required: true,
+      },
+
+      url: {
+        type: String,
+        required: true,
+      },
+
+      image: {
+        type: String,
+        required: true,
+      },
     },
+  },
 
-    computed: {
-        castDate() {
-            try {
-                const date = new Date(this.content.date);
-                return `${date.getMonth()}.${date.getFullYear()}`
-            } catch {
-                return false
-            }
-        }
-    }
-}
+  computed: {
+    castDate() {
+      try {
+        console.log(this.content.date);
+        const date = new Date(this.content.date);
+        return `${date.getMonth()}.${date.getFullYear()}`;
+      } catch {
+        return false;
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -73,6 +73,7 @@ export default {
         },
       };
     } catch (e) {
+      console.log(e);
       error({ statusCode: 404, message: "404" });
     }
   },
