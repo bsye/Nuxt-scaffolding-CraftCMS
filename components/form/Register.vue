@@ -20,7 +20,7 @@
           type="text"
           v-model="email"
           autocomplete="email"
-          :title="$t('loginUsername')"
+          :title="$t('loginEmail')"
         />
 
         <InputPassword
