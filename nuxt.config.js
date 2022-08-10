@@ -69,17 +69,6 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/tailwindcss
-    "@nuxtjs/tailwindcss",
-    "@nuxtjs/svg",
-    "@nuxtjs/axios",
-    "@nuxtjs/google-fonts",
-    "nuxt-graphql-request",
-    "nuxt-compress",
-  ],
-
   googleFonts: {
     families: {
       Inter: true,
@@ -118,17 +107,23 @@ export default {
       process.env.LIVE_PREVIEW === "true" ? process.env.CRAFT_AUTH_TOKEN : "",
   },
 
+  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+  buildModules: [
+    // https://go.nuxtjs.dev/tailwindcss
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/svg",
+    "@nuxtjs/axios",
+    "@nuxtjs/google-fonts",
+    "nuxt-graphql-request",
+    "nuxt-compress",
+    '@/modules/generator',
+  ],
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     "@nuxtjs/i18n",
     "@nuxt/image",
-    "@nuxt/http",
-    [
-      "nuxt-gmaps",
-      {
-        key: process.env.GMAPS_API,
-      },
-    ],
+    '@nuxtjs/sitemap',
     [
       "nuxt-compress",
       {
@@ -170,4 +165,8 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  sitemap: {
+    hostname: process.env.SITEMAP_BASE_URL,
+  },
 };
