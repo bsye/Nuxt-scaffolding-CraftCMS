@@ -13,6 +13,7 @@ export default {
 
   login: "Accedi",
   loginTitle: "Accedi",
+  loginEmail: "Email",
   loginUsername: "Nome Utente",
   loginPassword: "Password",
   loginForgot: "Hai dimenticato la password?",

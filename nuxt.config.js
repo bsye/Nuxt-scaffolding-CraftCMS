@@ -72,7 +72,7 @@ export default {
   googleFonts: {
     families: {
       Inter: true,
-    }
+    },
   },
 
   env: {
