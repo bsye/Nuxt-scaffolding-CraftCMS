@@ -15,12 +15,12 @@ export const mutations = {
     const expireTime = jwtDecode(state.access_token).exp * 1000
     const expireTimeDate = new Date(expireTime)
 
-    Cookies.set("FAST_JWT_TOKEN", state.access_token, { expires: expireTimeDate });
+    Cookies.set("JWT_TOKEN", state.access_token, { expires: expireTimeDate });
     this.$axios.setHeader("Authorization", `Bearer ${state.access_token}`);
   },
 
   UPDATE_STATE(state) {
-    state.access_token = Cookies.get("FAST_JWT_TOKEN");
+    state.access_token = Cookies.get("JWT_TOKEN");
     this.$axios.setHeader("Authorization", `Bearer ${state.access_token}`);
   },
 
@@ -32,7 +32,7 @@ export const mutations = {
     state.id = null;
     state.access_token = null;
 
-    Cookies.remove("FAST_JWT_TOKEN");
+    Cookies.remove("JWT_TOKEN");
   },
 };
 

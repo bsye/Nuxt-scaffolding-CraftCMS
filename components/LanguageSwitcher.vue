@@ -6,17 +6,19 @@
     <button @click.stop="dropdown = !dropdown">
       {{ currentLocale.name }}
     </button>
-    <div
-      v-if="dropdown"
-      class="dropdown"
-    >
-      <a
-        v-for="locale in availableLocales"
-        :key="locale.code"
-        :href="switchLocalePath(locale.code)"
-      >{{ locale.name }}
-      </a>
-    </div>
+    <TransitionFade>
+      <div
+        v-if="dropdown"
+        class="dropdown"
+      >
+        <a
+          v-for="locale in availableLocales"
+          :key="locale.code"
+          :href="switchLocalePath(locale.code)"
+        >{{ locale.name }}
+        </a>
+      </div>
+    </TransitionFade>
   </div>
 </template>
 
