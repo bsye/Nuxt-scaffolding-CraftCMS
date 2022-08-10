@@ -6,7 +6,7 @@ const createLocalizedObject = ({ localized, availableLocales }) => {
   let output = {};
 
   const findSiteSlugFromId = (id) =>
-    availableLocales.find((locale) => locale.siteId == id).site;
+    availableLocales.find((locale) => locale.siteId == id).code;
 
   localized.forEach(({ slug, siteId }) => {
     output[findSiteSlugFromId(siteId)] = {

@@ -21,6 +21,7 @@ export default function (search) {
                 }
                 ...on ${search.handle} {
                     id
+                    optionHideTitle
                     contentManager {
                         ${dispatchQuery(supportedBlocks)}
                     }

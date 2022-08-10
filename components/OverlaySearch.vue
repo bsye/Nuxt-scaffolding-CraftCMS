@@ -23,7 +23,7 @@
             >
 
               <p
-                v-if="loading"
+                v-if="loading && !minLetters"
                 class="warning"
               >
                 {{ $t('loading...') }}
@@ -50,7 +50,7 @@
                   <component
                     v-if="verifyResults(result[section])"
                     :content="result[section]"
-                    :is="`Search${section}`"
+                    :is="`search-${section}`"
                   />
                 </div>
               </div>
@@ -91,8 +91,8 @@ export default {
       search: {
         text: null,
         limit: 15,
-        section: ["Page", "News"],
-        site: this.$i18n.localeProperties.site,
+        section: ["news", "page"],
+        siteId: this.$i18n.localeProperties.siteId,
       },
       result: {},
     };
@@ -140,7 +140,8 @@ export default {
           }
           this.result = entries;
         }
-      } catch {
+      } catch (e) {
+        console.log(e);
         return false;
       }
     },

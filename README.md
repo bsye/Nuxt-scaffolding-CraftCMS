@@ -1,4 +1,4 @@
-# fast-nuxt
+# nuxt-craft-cms-starter
 
 ## Build Setup
 
