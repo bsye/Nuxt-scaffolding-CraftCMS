@@ -157,7 +157,7 @@ export default {
       {
         code: "en",
         site: "en",
-        siteId: 3,
+        siteId: 2,
         name: "Inglese",
         file: "en.js",
       },
