@@ -19,18 +19,21 @@
         <InputText
           type="text"
           v-model="email"
+          autocomplete="email"
           :title="$t('loginUsername')"
         />
 
         <InputPassword
           v-model="password"
           minLength="8"
+          autocomplete="new-password"
           :title="$t('loginPassword')"
         />
 
         <InputRepeatPassword
           v-model="repeatPassword"
           :toConfirm="password"
+          autocomplete="repeat-password"
           :title="$t('registerRepeatPassword')"
         />
       </div>

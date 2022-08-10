@@ -1,10 +1,12 @@
 <template>
   <client-only>
-    <div
-      v-if="isLogged"
-      class="logged"
-    >
-      <slot />
+    <div>
+      <div
+        v-if="isLogged"
+        class="logged"
+      >
+        <slot />
+      </div>
     </div>
   </client-only>
 </template>

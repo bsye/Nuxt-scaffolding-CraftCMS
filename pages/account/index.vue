@@ -1,44 +1,46 @@
 <template>
-  <Logged class="container account">
-    <PageHeader>
-      <h1>
-        {{ $t('account') }}
-      </h1>
-      <h3>
-        {{ $t('hello') + ` ${userData.name}.` }}
-      </h3>
-    </PageHeader>
-    <div class="manage">
-      <div class="tabs">
-        <div
-          class="details"
-          @click="openTab('details')"
-        >
-          <button>{{ $t('accountDetails') }}</button>
+  <div>
+    <Logged class="container account">
+      <PageHeader>
+        <h1>
+          {{ $t('account') }}
+        </h1>
+        <h3>
+          {{ $t('hello') + ` ${userData.name}.` }}
+        </h3>
+      </PageHeader>
+      <div class="manage">
+        <div class="tabs">
+          <div
+            class="details"
+            @click="openTab('details')"
+          >
+            <button>{{ $t('accountDetails') }}</button>
+          </div>
+
+          <div
+            class="change"
+            @click="openTab('change')"
+          >
+            <button>{{ $t('changePassword') }}</button>
+          </div>
+
+          <div
+            class="change"
+            @click="logout()"
+          >
+            <button class="font-medium">{{ $t('logout') }}</button>
+          </div>
         </div>
 
-        <div
-          class="change"
-          @click="openTab('change')"
-        >
-          <button>{{ $t('changePassword') }}</button>
-        </div>
+        <div class="container settings">
+          <UserDetails v-if="tabs.details" />
 
-        <div
-          class="change"
-          @click="logout()"
-        >
-          <button class="font-medium">{{ $t('logout') }}</button>
+          <ChangePassword v-if="tabs.change" />
         </div>
       </div>
-
-      <div class="container settings">
-        <UserDetails v-if="tabs.details" />
-
-        <ChangePassword v-if="tabs.change" />
-      </div>
-    </div>
-  </Logged>
+    </Logged>
+  </div>
 </template>
 
 <script>
@@ -53,6 +55,12 @@ export default {
       oldPassword: null,
       newPassword: null,
     };
+  },
+
+  mounted() {
+    if (!this.$store.getters["auth/isLogged"]) {
+      this.$router.replace(this.localePath("/login"));
+    }
   },
 
   computed: {

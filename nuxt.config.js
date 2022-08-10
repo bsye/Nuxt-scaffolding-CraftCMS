@@ -76,6 +76,7 @@ export default {
     "@nuxtjs/svg",
     "@nuxtjs/axios",
     "@nuxtjs/google-fonts",
+    "nuxt-webpack-optimisations",
     "nuxt-graphql-request",
     "nuxt-compress",
   ],
@@ -83,7 +84,7 @@ export default {
   googleFonts: {
     families: {
       Inter: true,
-    }
+    },
   },
 
   env: {
