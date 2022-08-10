@@ -15,15 +15,6 @@ module.exports = {
           800: "#0a0a0a",
           900: "#050505",
         },
-
-        orange: "#ce894f",
-        green: "#57704e",
-        blue: "#4e6f70",
-        brown: "#93765a",
-        red: "#91404e",
-        white: "#fff",
-        offWhite: "#f6f6f6",
-        black: "#000",
       },
       fill: {
         white: "#fff",

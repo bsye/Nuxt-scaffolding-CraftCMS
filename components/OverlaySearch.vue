@@ -23,7 +23,7 @@
             >
 
               <p
-                v-if="loading"
+                v-if="loading && !minLetters"
                 class="warning"
               >
                 {{ $t('loading...') }}
