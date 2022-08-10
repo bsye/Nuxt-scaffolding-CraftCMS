@@ -4,7 +4,7 @@ export default function (search) {
     const fragments = search.section.map(item => {
       let mapper = gql `
             ${item}: entries (
-                site: "${search.site}",
+                siteId: "${search.siteId}",
                 search: "${search.text}",
                 limit: ${search.limit},
                 type: "default",
@@ -15,6 +15,7 @@ export default function (search) {
               sectionHandle
               ... on ${item}_default_Entry {
                 url
+                dateCreated
                 fieldImage {
                   title
                   alt
