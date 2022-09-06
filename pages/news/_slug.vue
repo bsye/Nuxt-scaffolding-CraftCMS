@@ -26,7 +26,7 @@
         {{ castDate }}
       </h4>
       <h1>
-        {{ $t(content.title) }}
+        {{ content.title }}
       </h1>
     </div>
 
