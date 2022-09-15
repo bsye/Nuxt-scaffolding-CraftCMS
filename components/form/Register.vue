@@ -45,12 +45,12 @@
         {{ $t('privacyBox') }}
       </InputCheckbox>
 
-      <FieldButton>
+      <BlockButton>
         <input
           type="submit"
           :value="$t('register')"
         >
-      </FieldButton>
+      </BlockButton>
     </form>
   </client-only>
 </template>

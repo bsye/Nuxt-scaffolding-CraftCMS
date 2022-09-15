@@ -3,8 +3,8 @@ const dispatchQuery =  function (query) {
   try {
     query.forEach((item, key) => {
       if (!item) return false;
-      const q = require(`./field/${item}`).default();
-      request.push(q);
+        const q = require(`./block/${item}`).default();
+        request.push(q);
     });
   } catch (error) {
     return {};

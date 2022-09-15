@@ -5,7 +5,7 @@ export default function () {
         query MyQuery {
             globalSet {
                 ...on siteInfo_GlobalSet {
-                    fieldImage {
+                    image {
                         url
                     }
                     plainTitle

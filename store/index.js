@@ -31,7 +31,7 @@ export const actions = {
       }
 
       try {
-        info.favicon = $get(site, "globalSet.fieldImage[0].url");
+        info.favicon = $get(site, "globalSet.image[0].url");
       } catch {
         info.favicon = false;
       }

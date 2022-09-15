@@ -74,7 +74,7 @@ export default {
       return {
         content: {
           archive: result.entry,
-          description: result.entry.fieldTextContent,
+          description: result.entry.textContent,
           title: result.entry.title,
           headerColor: result.entry.headerColor,
 

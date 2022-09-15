@@ -9,9 +9,9 @@ export default function (search) {
                 ...on ${search.handle} {
                     id
                     title
-                    fieldTextContent
-                    optionHeaderColor
-                    fieldBackgroundImage {
+                    textContent
+                    headerColor
+                    backgroundImage {
                         title
                         alt
                         url
@@ -29,7 +29,7 @@ export default function (search) {
                     typeHandle
                     dateCreated
                     url
-                    fieldImage {
+                    image {
                         title
                         alt
                         url

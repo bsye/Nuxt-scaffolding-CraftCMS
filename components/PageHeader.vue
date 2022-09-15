@@ -3,7 +3,7 @@
     v-if="backgroundImage"
     class="hero"
   >
-    <FieldBackgroundImage :content="content" />
+    <BlockBackgroundImage :content="content" />
     <h1 class="title">
       <slot />
     </h1>
@@ -35,7 +35,7 @@ export default {
   computed: {
     backgroundImage() {
       try {
-        return `url(${this.content.fieldBackgroundImage[0].url})`;
+        return `url(${this.content.backgroundImage[0].url})`;
       } catch {}
     },
   },

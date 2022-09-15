@@ -3,9 +3,9 @@ import seoInfo from '../seo/seoInfo';
 import { dispatchQuery } from '../utils';
 
 const supportedBlocks = [
-  'contentHero',
-  'contentGroup',
-  'contentColumns',
+  'layout/hero',
+  'layout/group',
+  'layout/columns',
 ]
 
 export default function (search) {

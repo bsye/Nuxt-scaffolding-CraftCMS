@@ -6,7 +6,7 @@
     linkType="entry"
   >
     <div class="aspect">
-      <FieldImage :content="content.image" />
+      <BlockImage :content="content.image" />
     </div>
 
     <h5>{{ castDate }}</h5>

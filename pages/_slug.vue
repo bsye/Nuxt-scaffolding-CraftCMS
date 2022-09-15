@@ -65,9 +65,9 @@ export default {
             slug: search.slug,
           },
           elements: result.entry.contentManager,
-          hideTitle: result.entry.optionHideTitle,
+          hideTitle: result.entry.hideTitle,
           pageContent: result.entry,
-          title: result.entry.title,
+          title: result.entry.titleContent,
 
           seoInfo: result.entry.seoInfo,
         },

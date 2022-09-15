@@ -20,9 +20,9 @@
       </p>
 
       <div @click="changePassword()">
-        <FieldButton class="my-4">
+        <BlockButton class="my-4">
           <span>{{ $t('changePassword') }}</span>
-        </FieldButton>
+        </BlockButton>
       </div>
     </div>
   </div>

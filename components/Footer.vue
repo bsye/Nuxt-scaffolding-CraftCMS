@@ -8,16 +8,16 @@
         <div
           v-for="single in footer.footerContent"
           :key="single.handle"
-          :class="{'menu' : single.fieldNavigationMenu,
-                    'text': single.fieldTextContent}"
+          :class="{'menu' : single.navigationMenu,
+                    'text': single.textContent}"
         >
-          <div v-if="single.fieldTextContent">
-            <div v-html="single.fieldTextContent">
+          <div v-if="single.textContent">
+            <div v-html="single.textContent">
             </div>
           </div>
           <MenuItems
-            v-else-if="single.fieldNavigationMenu"
-            :menuName="single.fieldNavigationMenu"
+            v-else-if="single.navigationMenu"
+            :menuName="single.navigationMenu"
             class="navigation"
           />
         </div>
