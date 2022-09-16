@@ -53,7 +53,6 @@ export default {
           this.content.columnNumberDesktop,
           this.content.columnNumberWide,
         ];
-        console.log(this.content);
         return columns.join(" ");
       } catch (error) {}
     },
