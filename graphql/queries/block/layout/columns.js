@@ -32,6 +32,10 @@ export default function () {
                 }
             }
             responsiveVisibility
+            columnNumberMobile
+            columnNumberTablet
+            columnNumberDesktop
+            columnNumberWide
             backgroundColor
             textColor
             alignment
