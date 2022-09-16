@@ -14,14 +14,11 @@
       />
       <meta
         itemprop="datePublished"
-        :content="this.content.date"
+        :content="content.date"
       />
     </MetaData>
 
     <div class="container offset simple">
-      <h3 class="size-text-xl">
-        {{ $t('News') }}
-      </h3>
       <h4>
         {{ castDate }}
       </h4>
@@ -99,7 +96,6 @@ export default {
     try {
       const result = await $graphql.default.request(news(search));
       const localized = result.entry.localized;
-      console.log(localized);
       await store.dispatch("i18n/setRouteParams", $getRoutesParams(localized));
 
       return {
@@ -113,7 +109,7 @@ export default {
           date: result.entry.dateCreated,
           hideTitle: result.entry.hideTitle,
           pageContent: result.entry,
-          title: result.entry.titleContent,
+          title: result.entry.title,
 
           seoInfo: result.entry.seoInfo,
         },
