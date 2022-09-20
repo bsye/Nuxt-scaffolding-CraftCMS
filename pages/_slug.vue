@@ -3,17 +3,14 @@
     <MetaData
       :content="content.seoInfo"
       :fallback="{
-            title: content.title,
-          }"
+        title: content.title,
+      }"
     />
     <PageHeader v-if="!content.hideTitle">
       {{ content.title }}
     </PageHeader>
 
-    <ContentManager
-      class="block"
-      :elements="content.elements"
-    />
+    <ContentManager class="block" :elements="content.elements" />
   </div>
 </template>
 
@@ -58,7 +55,7 @@ export default {
         },
       };
     } catch (e) {
-      console.log(e);
+      console.log("error", e);
       error({ statusCode: 404, message: "404" });
     }
   },

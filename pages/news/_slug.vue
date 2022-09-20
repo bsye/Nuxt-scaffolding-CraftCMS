@@ -3,19 +3,13 @@
     <MetaData
       :content="content.seoInfo"
       :fallback="{
-          title: content.title,
-        }"
+        title: content.title,
+      }"
       itemtype="https://schema.org/NewsArticle"
       itemscope
     >
-      <meta
-        itemprop="headline"
-        :content="content.title"
-      />
-      <meta
-        itemprop="datePublished"
-        :content="content.date"
-      />
+      <meta itemprop="headline" :content="content.title" />
+      <meta itemprop="datePublished" :content="content.date" />
     </MetaData>
 
     <div class="container offset simple">
@@ -27,39 +21,33 @@
       </h1>
     </div>
 
-    <ContentManager
-      class="block"
-      :elements="content.elements"
-    />
+    <ContentManager class="block" :elements="content.elements" />
   </article>
 </template>
 
 <style scoped lang="scss">
-  .news {
-    .simple {
-      h4 {
-        @apply
-          text-sm
+.news {
+  .simple {
+    h4 {
+      @apply text-sm
           mb-1.5
           mt-10;
-      }
+    }
 
-      h3 {
-        @apply
-          font-medium;
-      }
+    h3 {
+      @apply font-medium;
+    }
 
-      h1 {
-        @apply
-          text-2xl
+    h1 {
+      @apply text-2xl
           mb-4;
-      }
     }
   }
+}
 </style>
 
 <script>
-import news from "~/graphql/queries/structure/news.js";
+import { entry } from "~/graphql/queries/structure/news.js";
 
 export default {
   data() {
@@ -88,7 +76,7 @@ export default {
 
   async asyncData({ route, i18n, $graphql, store, $getRoutesParams, error }) {
     try {
-      const result = await $graphql.default.request(news(), {
+      const result = await $graphql.default.request(entry(), {
         slug: route.params.slug,
         siteId: i18n.localeProperties.siteId,
       });
