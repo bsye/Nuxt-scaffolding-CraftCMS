@@ -2,16 +2,16 @@
   <div>
     <ElementSlider>
       <NuxtPicture
-        v-for="image in content.image"
-        quality='60'
+        v-for="image in content.images"
+        quality="60"
         preload
         loading="lazy"
-        sizes='xs:400px sm:560px md:720px lg:880px xl:1180px 2xl:1540px'
+        sizes="xs:400px sm:560px md:720px lg:880px xl:1180px 2xl:1540px"
         :imgAttrs="{
-                height: image.height,
-                width: image.width,
-                alt: image.alt,
-            }"
+          height: image.height,
+          width: image.width,
+          alt: image.alt,
+        }"
         :key="image.id"
         class="swiper-slide"
         :src="prepareImage(image.url)"
