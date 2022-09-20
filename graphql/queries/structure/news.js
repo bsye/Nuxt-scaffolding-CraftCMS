@@ -12,15 +12,15 @@ const supportedBlocks = [
 
 export default function (search) {
   const query = gql`
-        query MyQuery {
-            entry(slug: "${search.slug}", siteId: "${search.siteId}") {
+        query MyQuery($slug: [String], $siteId: [QueryArgument]) {
+            entry(slug: $slug, siteId: $siteId) {
                 id
                 title
                 localized {
                   slug
                   siteId
                 }
-                ...on ${search.handle} {
+                ...on news_default_Entry {
                     id
                     dateCreated
                     contentManager {

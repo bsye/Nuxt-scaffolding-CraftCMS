@@ -9,11 +9,11 @@ const supportedBlocks = [
 ]
 
 export default function (search) {
-    const query = gql `
-        query MyQuery {
-            entry(slug: "${search.slug}", siteId: "${search.siteId}") {
+    const query = gql`
+        query MyQuery($slug: [String], $siteId: [QueryArgument]) {
+            entry(slug: $slug, siteId: $siteId) {
                 id
-                ...on ${search.handle} {
+                ...on homePage_homePage_Entry {
                     id
                     contentManager {
                         ${dispatchQuery(supportedBlocks)}
@@ -22,6 +22,6 @@ export default function (search) {
                 }
             }
         }
-    `
+    `;
     return query
 }

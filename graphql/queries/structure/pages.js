@@ -9,17 +9,17 @@ const supportedBlocks = [
   'layout/columns',
 ]
 
-export default function (search) {
+export default function () {
     const query = gql`
-        query MyQuery {
-            entry(slug: "${search.slug}", siteId: "${search.siteId}") {
+        query MyQuery($slug: [String], $siteId: [QueryArgument]) {
+            entry(slug: $slug, siteId: $siteId) {
                 id
                 title
                 localized {
                   slug
                   siteId
                 }
-                ...on ${search.handle} {
+                ...on page_default_Entry {
                     id
                     hideTitle
                     contentManager {

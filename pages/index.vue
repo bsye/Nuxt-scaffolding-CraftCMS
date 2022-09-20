@@ -21,27 +21,22 @@ export default {
     };
   },
 
-  async asyncData({ route, i18n, $graphql }) {
-    let search = {
-      handle: "homePage_homePage_Entry",
-      slug: "home-page",
-      siteId: i18n.localeProperties.siteId,
-    };
-
+  async asyncData({ i18n, $graphql }) {
     try {
-      const result = await $graphql.default.request(homepage(search));
+      const result = await $graphql.default.request(homepage(), {
+        slug: "home-page",
+        siteId: i18n.localeProperties.siteId,
+      });
+
       return {
         content: {
-          entry: {
-            pageId: result.entry.id,
-            pageHandle: search.handle,
-          },
           elements: result.entry.contentManager,
           seoInfo: result.entry.seoInfo,
         },
       };
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
+      error({ statusCode: 404, message: "404" });
     }
   },
 };

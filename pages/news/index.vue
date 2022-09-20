@@ -7,7 +7,7 @@
           description: content.description
         }"
     />
-    <PageHeader :content="content.archive">
+    <PageHeader>
       {{ content.title }}
     </PageHeader>
     <div class="container">
@@ -44,14 +44,6 @@ export default {
     };
   },
 
-  head() {
-    return {
-      bodyAttrs: {
-        class: this.$get(this.content, "headerColor") ? "clear" : "dark",
-      },
-    };
-  },
-
   nuxtI18n: {
     paths: {
       it: "/news/",
@@ -60,30 +52,24 @@ export default {
   },
 
   async asyncData({ route, i18n, $graphql }) {
-    let search = {
-      structure: "news",
-      limit: 100,
-
-      type: "newsArchive",
-      handle: "newsArchive_newsArchive_Entry",
-      siteId: i18n.localeProperties.siteId,
-    };
-
     try {
-      const result = await $graphql.default.request(newsArchive(search));
+      const result = await $graphql.default.request(newsArchive(), {
+        section: "news",
+        limit: 100,
+        type: "newsArchive",
+        siteId: i18n.localeProperties.siteId,
+      });
       return {
         content: {
-          archive: result.entry,
           description: result.entry.textContent,
           title: result.entry.title,
-          headerColor: result.entry.headerColor,
-
           teaser: result.entries,
           seoInfo: result.entry.seoInfo,
         },
       };
-    } catch {
-      return false;
+    } catch (e) {
+      console.log(e);
+      error({ statusCode: 404, message: "404" });
     }
   },
 };
