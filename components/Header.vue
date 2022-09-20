@@ -30,7 +30,7 @@
       </div>
 
       <div class="utils">
-        <client-only>
+        <client-only v-if="loginEnabled">
           <button
             v-if="!isLogged"
             class="link login desktop"
@@ -128,6 +128,10 @@ export default {
   computed: {
     isLogged() {
       return this.$store.getters["auth/isLogged"];
+    },
+
+    loginEnabled() {
+      return process.env.BC_API;
     },
   },
 
