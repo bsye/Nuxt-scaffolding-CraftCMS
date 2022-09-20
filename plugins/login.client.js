@@ -1,6 +1,8 @@
 import Cookies from "js-cookie";
 
 export default function ({ store, app: { $axios }, redirect }) {
+  if(!process.env.BC_API) return
+
   if (!store.getters["auth/isLogged"]) {
     store.commit("auth/UPDATE_STATE");
   }
