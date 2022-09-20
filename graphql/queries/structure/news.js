@@ -10,7 +10,7 @@ const supportedBlocks = [
 ]
 
 
-export default function (search) {
+const entry = function () {
   const query = gql`
         query MyQuery($slug: [String], $siteId: [QueryArgument]) {
             entry(slug: $slug, siteId: $siteId) {
@@ -32,4 +32,35 @@ export default function (search) {
         }
     `;
   return query
+}
+
+const entries = function (search) {
+  const query = gql`
+        query MyQuery($siteId: [QueryArgument], $limit: Int, $section: [String]) {
+            entries (section: $section, siteId: $siteId, limit: $limit) {
+                ... on news_default_Entry {
+                    id
+                    typeHandle
+                    dateCreated
+                    url
+                    image {
+                        title
+                        alt
+                        url
+                        width
+                        height
+                    }
+                    title
+                }
+            }
+        }
+    `;
+  return query
+}
+
+
+
+export {
+  entry,
+  entries
 }

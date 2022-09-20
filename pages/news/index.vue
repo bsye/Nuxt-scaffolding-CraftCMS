@@ -1,33 +1,28 @@
 <template>
   <div class="archive news">
     <MetaData
-      :content="content.seoInfo"
+      :content="seoInfo"
       :fallback="{
-          title: content.title,
-          description: content.description
-        }"
+        title: title,
+        description: description,
+      }"
     />
     <PageHeader>
-      {{ content.title }}
+      {{ title }}
     </PageHeader>
     <div class="container">
-      <div
-        class="abstract"
-        v-if="content.description"
-        v-html="content.description"
-      >
-      </div>
+      <div class="abstract" v-if="description" v-html="description"></div>
 
       <div class="site-grid one">
         <TeaserNews
-          v-for="element in content.teaser"
+          v-for="element in teaser"
           :key="element.id"
           :content="{
-                  'title': element.title,
-                  'date': element.dateCreated,
-                  'image': element,
-                  'url': element.url,
-              }"
+            title: element.title,
+            date: element.dateCreated,
+            image: element,
+            url: element.url,
+          }"
         />
       </div>
     </div>
@@ -36,6 +31,7 @@
 
 <script>
 import newsArchive from "~/graphql/queries/single/newsArchive.js";
+import { entries } from "~/graphql/queries/structure/news.js";
 
 export default {
   data() {
@@ -51,21 +47,30 @@ export default {
     },
   },
 
-  async asyncData({ route, i18n, $graphql }) {
+  async asyncData({ i18n, $graphql, error }) {
     try {
-      const result = await $graphql.default.request(newsArchive(), {
-        section: "news",
-        limit: 100,
-        type: "newsArchive",
-        siteId: i18n.localeProperties.siteId,
-      });
-      return {
-        content: {
-          description: result.entry.textContent,
-          title: result.entry.title,
-          teaser: result.entries,
-          seoInfo: result.entry.seoInfo,
+      const [resArchive, resEntries] = await $graphql.default.batchRequests([
+        {
+          document: newsArchive(),
+          variables: {
+            type: "newsArchive",
+            siteId: i18n.localeProperties.siteId,
+          },
         },
+        {
+          document: entries(),
+          variables: {
+            section: "news",
+            limit: 100,
+            siteId: i18n.localeProperties.siteId,
+          },
+        },
+      ]);
+      return {
+        description: resArchive.data.entry.textContent,
+        title: resArchive.data.entry.title,
+        teaser: resEntries.data.entries,
+        seoInfo: resArchive.data.entry.seoInfo,
       };
     } catch (e) {
       console.log(e);
