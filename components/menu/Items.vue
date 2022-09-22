@@ -1,6 +1,13 @@
 <template>
-  <ul itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-    <li itemprop="name" v-for="item in menu" :key="item.id">
+  <ul
+    itemscope
+    itemtype="http://www.schema.org/SiteNavigationElement"
+  >
+    <li
+      itemprop="name"
+      v-for="item in menu"
+      :key="item.id"
+    >
       <LinkChecker
         :url="item.url"
         itemprop="url"
@@ -49,7 +56,7 @@ export default {
           menuName: this.menuName,
         }),
         {
-          site: this.$i18n.localeProperties.site,
+          siteId: this.$i18n.localeProperties.siteId,
           navHandle: this.menuName,
         }
       );

@@ -2,8 +2,8 @@ import { gql } from 'nuxt-graphql-request';
 
 export default function ({ menuName }) {
   let query = gql`
-    query mainMenu ($navHandle: String, $site: [String]) {
-      navigationNodes(navHandle: $navHandle, site: $site) {
+    query mainMenu ($navHandle: String, $siteId: [String]) {
+      navigationNodes(navHandle: $navHandle, siteId: $siteId) {
         ... menu
       }
     }
