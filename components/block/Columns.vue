@@ -14,7 +14,7 @@
         :key="column.id"
         class="column"
         :class="[columnVisibility(column.responsiveVisibility)]"
-        :elements="column.children"
+        :blocks="column.children"
       />
     </div>
   </div>

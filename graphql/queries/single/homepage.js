@@ -8,8 +8,8 @@ const supportedBlocks = [
   'layout/columns',
 ]
 
-export default function (search) {
-    const query = gql`
+const entry = function () {
+  const query = gql`
         query MyQuery($slug: [String], $siteId: [QueryArgument]) {
             entry(slug: $slug, siteId: $siteId) {
                 id
@@ -23,5 +23,7 @@ export default function (search) {
             }
         }
     `;
-    return query
-}
+  return query;
+};
+
+export { entry }

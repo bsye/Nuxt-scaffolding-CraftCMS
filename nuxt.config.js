@@ -144,14 +144,12 @@ export default {
     locales: [
       {
         code: "it",
-        site: "it",
         siteId: 1,
         name: "Italiano",
         file: "it.js",
       },
       {
         code: "en",
-        site: "en",
         siteId: 2,
         name: "Inglese",
         file: "en.js",

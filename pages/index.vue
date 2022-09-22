@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <MetaData :content="content.seoInfo" />
+    <MetaData :content="seoInfo" />
     <ContentManager
       class="block"
-      :elements="content.elements"
+      :blocks="blocks"
     />
   </div>
 </template>
@@ -12,27 +12,19 @@
 </style>
 
 <script>
-import homepage from "~/graphql/queries/single/homepage.js";
+import { entry } from "~/graphql/queries/single/homepage.js";
 
 export default {
-  data() {
-    return {
-      content: {},
-    };
-  },
-
   async asyncData({ i18n, $graphql }) {
     try {
-      const result = await $graphql.default.request(homepage(), {
+      const result = await $graphql.default.request(entry(), {
         slug: "home-page",
         siteId: i18n.localeProperties.siteId,
       });
 
       return {
-        content: {
-          elements: result.entry.contentManager,
-          seoInfo: result.entry.seoInfo,
-        },
+        blocks: result.entry.contentManager,
+        seoInfo: result.entry.seoInfo,
       };
     } catch (e) {
       console.log(e);

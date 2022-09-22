@@ -11,7 +11,11 @@
       {{ title }}
     </PageHeader>
     <div class="container">
-      <div class="abstract" v-if="description" v-html="description"></div>
+      <div
+        class="abstract"
+        v-if="description"
+        v-html="description"
+      ></div>
 
       <div class="site-grid one">
         <TeaserNews
@@ -31,7 +35,7 @@
 
 <script>
 import newsArchive from "~/graphql/queries/single/newsArchive.js";
-import { entries } from "~/graphql/queries/structure/news.js";
+import { entries } from "~/graphql/queries/entry/news.js";
 
 export default {
   data() {

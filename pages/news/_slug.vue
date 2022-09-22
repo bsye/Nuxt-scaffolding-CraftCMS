@@ -1,15 +1,21 @@
 <template>
   <article class="news">
     <MetaData
-      :content="content.seoInfo"
+      :content="seoInfo"
       :fallback="{
-        title: content.title,
+        title: title,
       }"
       itemtype="https://schema.org/NewsArticle"
       itemscope
     >
-      <meta itemprop="headline" :content="content.title" />
-      <meta itemprop="datePublished" :content="content.date" />
+      <meta
+        itemprop="headline"
+        :content="title"
+      />
+      <meta
+        itemprop="datePublished"
+        :content="date"
+      />
     </MetaData>
 
     <div class="container offset simple">
@@ -17,11 +23,14 @@
         {{ castDate }}
       </h4>
       <h1>
-        {{ content.title }}
+        {{ title }}
       </h1>
     </div>
 
-    <ContentManager class="block" :elements="content.elements" />
+    <ContentManager
+      class="block"
+      :blocks="blocks"
+    />
   </article>
 </template>
 
@@ -47,19 +56,13 @@
 </style>
 
 <script>
-import { entry } from "~/graphql/queries/structure/news.js";
+import { entry } from "~/graphql/queries/entry/news.js";
 
 export default {
-  data() {
-    return {
-      content: {},
-    };
-  },
-
   computed: {
     castDate() {
       try {
-        const date = new Date(this.content.date);
+        const date = new Date(this.date);
         return `${date.getMonth()}.${date.getFullYear()}`;
       } catch {
         return false;
@@ -84,13 +87,11 @@ export default {
       await store.dispatch("i18n/setRouteParams", $getRoutesParams(localized));
 
       return {
-        content: {
-          elements: result.entry.contentManager,
-          date: result.entry.dateCreated,
-          pageContent: result.entry,
-          title: result.entry.title,
-          seoInfo: result.entry.seoInfo,
-        },
+        blocks: result.entry.contentManager,
+        date: result.entry.dateCreated,
+        pageContent: result.entry,
+        title: result.entry.title,
+        seoInfo: result.entry.seoInfo,
       };
     } catch (e) {
       console.log(e);

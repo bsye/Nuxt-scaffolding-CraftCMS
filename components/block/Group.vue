@@ -16,7 +16,7 @@
     >
       <ContentManager
         class="block"
-        :elements="content.children"
+        :blocks="content.children"
       />
     </div>
   </div>

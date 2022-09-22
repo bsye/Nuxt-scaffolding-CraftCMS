@@ -47,7 +47,7 @@
       class="inner"
       :class="[contentAlignment, 
                     contentWidth]"
-      :elements="content.children"
+      :blocks="content.children"
     />
   </div>
 </template>

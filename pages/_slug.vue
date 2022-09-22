@@ -1,16 +1,19 @@
 <template>
   <div class="page">
     <MetaData
-      :content="content.seoInfo"
+      :content="seoInfo"
       :fallback="{
-        title: content.title,
+        title: title,
       }"
     />
-    <PageHeader v-if="!content.hideTitle">
-      {{ content.title }}
+    <PageHeader v-if="!hideTitle">
+      {{ title }}
     </PageHeader>
 
-    <ContentManager class="block" :elements="content.elements" />
+    <ContentManager
+      class="block"
+      :blocks="blocks"
+    />
   </div>
 </template>
 
@@ -18,15 +21,9 @@
 </style>
 
 <script>
-import pages from "~/graphql/queries/structure/pages.js";
+import { entry } from "~/graphql/queries/entry/pages.js";
 
 export default {
-  data() {
-    return {
-      content: {},
-    };
-  },
-
   nuxtI18n: {
     paths: {
       it: "/:slug",
@@ -36,23 +33,18 @@ export default {
 
   async asyncData({ route, i18n, $graphql, store, $getRoutesParams, error }) {
     try {
-      const result = await $graphql.default.request(pages(), {
+      const result = await $graphql.default.request(entry(), {
         slug: route.params.slug,
         siteId: i18n.localeProperties.siteId,
       });
-
       const localized = result.entry.localized;
-
       await store.dispatch("i18n/setRouteParams", $getRoutesParams(localized));
 
       return {
-        content: {
-          elements: result.entry.contentManager,
-          hideTitle: result.entry.hideTitle,
-          title: result.entry.title,
-
-          seoInfo: result.entry.seoInfo,
-        },
+        blocks: result.entry.contentManager,
+        hideTitle: result.entry.hideTitle,
+        title: result.entry.title,
+        seoInfo: result.entry.seoInfo,
       };
     } catch (e) {
       console.log("error", e);

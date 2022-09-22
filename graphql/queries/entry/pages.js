@@ -9,9 +9,9 @@ const supportedBlocks = [
   'layout/columns',
 ]
 
-export default function () {
-    const query = gql`
-        query MyQuery($slug: [String], $siteId: [QueryArgument]) {
+const entry = function () {
+  const query = gql`
+        query entry($slug: [String], $siteId: [QueryArgument]) {
             entry(slug: $slug, siteId: $siteId) {
                 id
                 title
@@ -30,5 +30,7 @@ export default function () {
             }
         }
     `;
-    return query
-}
+  return query;
+};
+
+export { entry }

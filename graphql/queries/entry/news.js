@@ -9,10 +9,9 @@ const supportedBlocks = [
   'layout/columns',
 ]
 
-
 const entry = function () {
   const query = gql`
-        query MyQuery($slug: [String], $siteId: [QueryArgument]) {
+        query entry($slug: [String], $siteId: [QueryArgument]) {
             entry(slug: $slug, siteId: $siteId) {
                 id
                 title
@@ -34,9 +33,9 @@ const entry = function () {
   return query
 }
 
-const entries = function (search) {
+const entries = function () {
   const query = gql`
-        query MyQuery($siteId: [QueryArgument], $limit: Int, $section: [String]) {
+        query entries($siteId: [QueryArgument], $limit: Int, $section: [String]) {
             entries (section: $section, siteId: $siteId, limit: $limit) {
                 ... on news_default_Entry {
                     id
