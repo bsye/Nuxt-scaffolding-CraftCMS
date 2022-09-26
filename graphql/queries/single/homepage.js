@@ -3,17 +3,17 @@ import seoInfo from '../seo/seoInfo';
 import { dispatchQuery } from '../utils';
 
 const supportedBlocks = [
-  'contentHero',
-  'contentGroup',
-  'contentColumns',
+  'layout/hero',
+  'layout/group',
+  'layout/columns',
 ]
 
-export default function (search) {
-    const query = gql `
-        query MyQuery {
-            entry(slug: "${search.slug}", siteId: "${search.siteId}") {
+const entry = function () {
+  const query = gql`
+        query MyQuery($slug: [String], $siteId: [QueryArgument]) {
+            entry(slug: $slug, siteId: $siteId) {
                 id
-                ...on ${search.handle} {
+                ...on homePage_homePage_Entry {
                     id
                     contentManager {
                         ${dispatchQuery(supportedBlocks)}
@@ -22,6 +22,8 @@ export default function (search) {
                 }
             }
         }
-    `
-    return query
-}
+    `;
+  return query;
+};
+
+export { entry }

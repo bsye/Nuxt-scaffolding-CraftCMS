@@ -1,33 +1,32 @@
 <template>
   <div class="archive news">
     <MetaData
-      :content="content.seoInfo"
+      :content="seoInfo"
       :fallback="{
-          title: content.title,
-          description: content.description
-        }"
+        title: title,
+        description: description,
+      }"
     />
-    <PageHeader :content="content.archive">
-      {{ content.title }}
+    <PageHeader>
+      {{ title }}
     </PageHeader>
     <div class="container">
       <div
         class="abstract"
-        v-if="content.description"
-        v-html="content.description"
-      >
-      </div>
+        v-if="description"
+        v-html="description"
+      ></div>
 
       <div class="site-grid one">
         <TeaserNews
-          v-for="element in content.teaser"
+          v-for="element in teaser"
           :key="element.id"
           :content="{
-                  'title': element.title,
-                  'date': element.dateCreated,
-                  'image': element,
-                  'url': element.url,
-              }"
+            title: element.title,
+            date: element.dateCreated,
+            image: element,
+            url: element.url,
+          }"
         />
       </div>
     </div>
@@ -36,19 +35,12 @@
 
 <script>
 import newsArchive from "~/graphql/queries/single/newsArchive.js";
+import { entries } from "~/graphql/queries/entry/news.js";
 
 export default {
   data() {
     return {
       content: {},
-    };
-  },
-
-  head() {
-    return {
-      bodyAttrs: {
-        class: this.$get(this.content, "headerColor") ? "clear" : "dark",
-      },
     };
   },
 
@@ -59,31 +51,34 @@ export default {
     },
   },
 
-  async asyncData({ route, i18n, $graphql }) {
-    let search = {
-      structure: "news",
-      limit: 100,
-
-      type: "newsArchive",
-      handle: "newsArchive_newsArchive_Entry",
-      siteId: i18n.localeProperties.siteId,
-    };
-
+  async asyncData({ i18n, $graphql, error }) {
     try {
-      const result = await $graphql.default.request(newsArchive(search));
-      return {
-        content: {
-          archive: result.entry,
-          description: result.entry.fieldTextContent,
-          title: result.entry.title,
-          headerColor: result.entry.headerColor,
-
-          teaser: result.entries,
-          seoInfo: result.entry.seoInfo,
+      const [resArchive, resEntries] = await $graphql.default.batchRequests([
+        {
+          document: newsArchive(),
+          variables: {
+            type: "newsArchive",
+            siteId: i18n.localeProperties.siteId,
+          },
         },
+        {
+          document: entries(),
+          variables: {
+            section: "news",
+            limit: 100,
+            siteId: i18n.localeProperties.siteId,
+          },
+        },
+      ]);
+      return {
+        description: resArchive.data.entry.textContent,
+        title: resArchive.data.entry.title,
+        teaser: resEntries.data.entries,
+        seoInfo: resArchive.data.entry.seoInfo,
       };
-    } catch {
-      return false;
+    } catch (e) {
+      console.log(e);
+      error({ statusCode: 404, message: "404" });
     }
   },
 };

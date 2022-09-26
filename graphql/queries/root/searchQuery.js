@@ -16,7 +16,7 @@ export default function (search) {
               ... on ${item}_default_Entry {
                 url
                 dateCreated
-                fieldImage {
+                image {
                   title
                   alt
                   url

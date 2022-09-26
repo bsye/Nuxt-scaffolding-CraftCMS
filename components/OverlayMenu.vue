@@ -5,7 +5,7 @@
         <li
           v-for="link of firstLevel"
           :key="link.id"
-          :title="link.title"
+          :title="link.titleContent"
           v-bind:class="{ 'secondary': link.secondaryMenuItem, 
                                 'has-children': link.children.length > 0 }"
         >
@@ -15,14 +15,14 @@
             v-if="link.children.length == 0 && link"
             :linkType="link.type"
           >
-            {{ link.title }}
+            {{ link.titleContent }}
           </LinkChecker>
 
           <MenuDropdown
             :subMenu="link.children"
             v-else-if="link"
           >
-            {{ link.title }}
+            {{ link.titleContent }}
           </MenuDropdown>
         </li>
       </ul>

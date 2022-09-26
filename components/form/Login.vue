@@ -42,12 +42,12 @@
         {{ $t('userNotCorrect') }}
       </p>
 
-      <FieldButton>
+      <BlockButton>
         <input
           :value="$t('login')"
           type="submit"
         />
-      </FieldButton>
+      </BlockButton>
     </form>
   </client-only>
 </template>

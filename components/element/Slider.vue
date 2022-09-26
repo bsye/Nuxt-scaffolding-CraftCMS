@@ -1,49 +1,53 @@
 <template>
-    <div ref="swiper" class="swiper" :class="{centered}">
-        <div class="swiper-wrapper">
-            <slot/>
-        </div>
+  <div
+    ref="swiper"
+    class="swiper"
+    :class="{centered}"
+  >
+    <div class="swiper-wrapper">
+      <slot />
     </div>
+  </div>
 </template>
 
 <script>
-import Swiper from 'swiper/swiper-bundle.min';
-import 'swiper/swiper-bundle.min.css';
+import Swiper from "swiper/swiper-bundle.min";
+import "swiper/swiper-bundle.min.css";
 
 export default {
   props: {
     centered: {
-        type: Boolean,
+      type: Boolean,
     },
   },
 
   async mounted() {
     await this.$nextTick();
     new Swiper(this.$refs.swiper, {
-        slidesPerView: this.centered ? 'auto' : 1.08,
-        autoplay: true,
-        loop: this.centered ? true : false,
-        loopedSlides: this.centered ? 8 : 0,
-        centeredSlides: this.centered ? this.centered : false,
-        spaceBetween: 20,
-        breakpoints: {
-            1280 : {
-                slidesPerView: this.centered ? 'auto' : 4,
-                spaceBetween: 40,
-            },
+      slidesPerView: this.centered ? "auto" : 1.08,
+      autoplay: true,
+      loop: this.centered ? true : false,
+      loopedSlides: this.centered ? 8 : 0,
+      centeredSlides: this.centered ? this.centered : false,
+      spaceBetween: 20,
+      breakpoints: {
+        1280: {
+          slidesPerView: this.centered ? "auto" : 4,
+          spaceBetween: 40,
+        },
 
-            1024 : {
-                slidesPerView: this.centered ? 'auto' : 3.24,
-                spaceBetween: 40,
-            },
+        1024: {
+          slidesPerView: this.centered ? "auto" : 3.24,
+          spaceBetween: 40,
+        },
 
-            768 : {
-                slidesPerView: this.centered ? 'auto' : 2.16,
-            },
-        }
+        768: {
+          slidesPerView: this.centered ? "auto" : 2.16,
+        },
+      },
     });
   },
-}
+};
 </script>
 
 <style lang="scss">
