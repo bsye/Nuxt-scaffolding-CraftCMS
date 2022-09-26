@@ -1,46 +1,20 @@
-import {gql} from 'nuxt-graphql-request';
+import { gql } from 'nuxt-graphql-request';
 import seoInfo from '../seo/seoInfo';
 
-export default function (search) {
-    const query = gql `
-        query MyQuery {
-            entry(siteId: "${search.siteId}", type: "${search.type}") {
+export default function () {
+    const query = gql`
+        query MyQuery($siteId: [QueryArgument], $type: [String]) {
+            entry(siteId: $siteId, type: $type) {
                 id
-                ...on ${search.handle} {
+                ...on newsArchive_newsArchive_Entry {
                     id
                     title
-                    fieldTextContent
-                    optionHeaderColor
-                    fieldBackgroundImage {
-                        title
-                        alt
-                        url
-                        width
-                        height
-                    }
-
+                    textContent
                     ${seoInfo()}
                 }
             }
-
-            entries (section: "${search.structure}" limit: ${search.limit}) {
-                ... on ${search.structure}_default_Entry {
-                    id
-                    typeHandle
-                    dateCreated
-                    url
-                    fieldImage {
-                        title
-                        alt
-                        url
-                        width
-                        height
-                    }
-                    title
-                }
-            }
         }
-    `
+    `;
 
     return query
 }

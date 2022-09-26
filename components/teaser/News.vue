@@ -6,7 +6,7 @@
     linkType="entry"
   >
     <div class="aspect">
-      <FieldImage :content="content.image" />
+      <BlockImage :content="content.image" />
     </div>
 
     <h5>{{ castDate }}</h5>
@@ -43,7 +43,6 @@ export default {
   computed: {
     castDate() {
       try {
-        console.log(this.content.date);
         const date = new Date(this.content.date);
         return `${date.getMonth()}.${date.getFullYear()}`;
       } catch {

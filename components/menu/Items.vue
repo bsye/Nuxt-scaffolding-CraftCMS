@@ -11,10 +11,9 @@
       <LinkChecker
         :url="item.url"
         itemprop="url"
-        :class="{'passive': item.type == passiveType, 'parent': item.level == 1}"
+        :class="{ passive: item.type == passiveType, parent: item.level == 1 }"
         :linkType="item.type"
       >
-
         {{ item.title }}
       </LinkChecker>
     </li>
@@ -55,11 +54,15 @@ export default {
       const entries = await this.$graphql.default.request(
         menuQuery({
           menuName: this.menuName,
+        }),
+        {
           siteId: this.$i18n.localeProperties.siteId,
-        })
+          navHandle: this.menuName,
+        }
       );
       this.menu = entries.navigationNodes.filter((item) => item.id);
-    } catch (error) {
+    } catch (err) {
+      console.log("error", err);
       this.$nuxt.error({ statusCode: 404, message: "404" });
     }
   },
@@ -67,21 +70,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    ul {
-      @apply
-        flex
+ul {
+  @apply flex
         gap-8
         items-center
         justify-between;
 
-      li {
-        a {
-          @apply
-            block
+  li {
+    a {
+      @apply block
             hover:opacity-50
             transition-opacity
             leading-none;
-        }
-      }
     }
+  }
+}
 </style>

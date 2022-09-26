@@ -44,11 +44,11 @@ export default function() {
     }
 
     fragment text on footerContent_footerTextContent_BlockType {
-      fieldTextContent
+      textContent
     }
 
     fragment navigation on footerContent_footerNavigationMenu_BlockType {
-      fieldNavigationMenu
+      navigationMenu
     }
   `
 

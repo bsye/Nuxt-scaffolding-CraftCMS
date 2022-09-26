@@ -7,9 +7,9 @@
       <h1>{{ $t('notFound') }}</h1>
       <h3>{{ $t('notFoundDescription') }}</h3>
     </div>
-    <FieldButton>
+    <BlockButton>
       <NuxtLink to="/">{{ $t('toHomepage') }}</NuxtLink>
-    </FieldButton>
+    </BlockButton>
   </div>
 </template>
 

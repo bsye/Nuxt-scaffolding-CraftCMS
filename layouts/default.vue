@@ -210,26 +210,27 @@ export default {
   }
 
   .hide-mobile {
-    @apply
-      hidden
-      md:block;
+    @media screen and (max-width: calc(theme('screens.md') - 1px)) {
+      display: none !important;
+    }
   }
 
   .hide-tablet {
-    @apply
-      md:hidden
-      lg:block;
+    @media screen and (min-width: theme('screens.md')) and (max-width: calc(theme('screens.lg') - 1px)) {
+      display: none !important;
+    }
   }
 
   .hide-desktop {
-    @apply
-      lg:hidden
-      xl:block;
+    @media screen and (min-width: theme('screens.lg')) and (max-width: calc(theme('screens.xl') - 1px)) {
+      display: none !important;
+    }
   }
 
   .hide-wide {
-    @apply
-      xl:hidden;
+    @media screen and (min-width: theme('screens.xl')){
+      display: none !important;
+    }
   }
 
   .site-grid {
