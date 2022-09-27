@@ -5,9 +5,9 @@
       <LazyOverlaySearch :isFocused="searchOpen" v-if="searchOpen" />
       <LazyOverlayLogin v-if="loginOpen" />
 
-      <LinkChecker alt="Logo" :url="localePath('/')" linkType="url">
+      <nuxt-link :to="localePath('/')">
         <SiteLogo class="site-logo" alt="site-logo" />
-      </LinkChecker>
+      </nuxt-link>
 
       <div class="navigation">
         <MenuItems menuName="menuMainDesktop" class="menu" />
@@ -22,15 +22,14 @@
           >
             {{ $t("login") }}
           </button>
-          <LinkChecker
+          <nuxt-link
             v-else
             alt="login"
             class="login desktop"
-            :url="localePath('/account')"
-            linkType="url"
+            :to="localePath('/account')"
           >
             {{ $t("account") }}
-          </LinkChecker>
+          </nuxt-link>
         </client-only>
 
         <LanguageSwitcher />
