@@ -163,6 +163,16 @@ export default {
     },
   },
 
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'child-page',
+        path: '/:parent/:slug',
+        component: resolve(__dirname, 'pages/_slug.vue')
+      })
+    }
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
