@@ -6,8 +6,10 @@
           v-for="link of firstLevel"
           :key="link.id"
           :title="link.titleContent"
-          v-bind:class="{ 'secondary': link.secondaryMenuItem, 
-                                'has-children': link.children.length > 0 }"
+          v-bind:class="{
+            secondary: link.secondaryMenuItem,
+            'has-children': link.children.length > 0,
+          }"
         >
           <LinkChecker
             :url="link.url"
@@ -18,10 +20,7 @@
             {{ link.titleContent }}
           </LinkChecker>
 
-          <MenuDropdown
-            :subMenu="link.children"
-            v-else-if="link"
-          >
+          <MenuDropdown :subMenu="link.children" v-else-if="link">
             {{ link.titleContent }}
           </MenuDropdown>
         </li>
@@ -38,19 +37,6 @@ export default {
     return {
       menu: null,
     };
-  },
-
-  mounted: function () {
-    this.$nextTick(function () {
-      this.onResize();
-    });
-    window.addEventListener("resize", this.onResize);
-  },
-
-  methods: {
-    onResize() {
-      if (window.innerWidth > 1023) this.$root.$emit("overlay-menu", false);
-    },
   },
 
   computed: {
@@ -78,8 +64,7 @@ export default {
 
 <style lang="scss" scoped>
 .overlay {
-  @apply
-    fixed
+  @apply fixed
     inset-0
     flex
     p-5
@@ -94,16 +79,16 @@ export default {
     w-full
     bg-dark-500
     text-gray-200
-    h-screen;
+    h-screen
+    
+    md:hidden;
 
   ul {
-    @apply
-      w-full;
+    @apply w-full;
   }
 
   li {
-    @apply
-      border-b
+    @apply border-b
       px-4
       w-full
       pb-2
@@ -113,19 +98,16 @@ export default {
       border-gray-200;
 
     a {
-      @apply
-        transition-opacity
+      @apply transition-opacity
         hover:opacity-50;
     }
 
     &.secondary {
-      @apply
-        border-none
+      @apply border-none
         mb-0
         pb-0
         text-base;
     }
   }
 }
-
 </style>
