@@ -2,15 +2,31 @@
   <ul
     itemscope
     itemtype="http://www.schema.org/SiteNavigationElement"
+    :class="`menu-direction-${direction}`"
   >
     <li
       itemprop="name"
-      v-for="item in menu"
+      v-for="item in items"
       :key="item.id"
+      :id="item.id"
+      :class="[
+        {
+          'has-children': showChildren && item.children.length > 0,
+        },
+        itemClass || null,
+      ]"
     >
+      <MenuDropdown
+        :subMenu="item.children"
+        v-if="item.children.length > 0 && showChildren"
+      >
+        {{ item.title }}
+      </MenuDropdown>
+
       <LinkChecker
         :url="item.url"
         itemprop="url"
+        v-else
         :class="{ passive: item.type == passiveType, parent: item.level == 1 }"
         :linkType="item.type"
       >
@@ -26,7 +42,7 @@ import menuQuery from "/graphql/queries/globals/menu";
 export default {
   data() {
     return {
-      menu: [],
+      items: [],
     };
   },
 
@@ -34,6 +50,22 @@ export default {
     menuName: {
       type: String,
       required: true,
+    },
+    itemClass: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    showChildren: {
+      type: Boolean,
+      default: false,
+    },
+    direction: {
+      type: String,
+      validator(value) {
+        return ["horizontal", "vertical"].includes(value);
+      },
+      default: "horizontal",
     },
   },
 
@@ -60,10 +92,9 @@ export default {
           navHandle: this.menuName,
         }
       );
-      this.menu = entries.navigationNodes.filter((item) => item.id);
+      this.items = entries.navigationNodes.filter((item) => item.id);
     } catch (err) {
       console.log("error", err);
-      this.$nuxt.error({ statusCode: 404, message: "404" });
     }
   },
 };
@@ -71,17 +102,27 @@ export default {
 
 <style lang="scss" scoped>
 ul {
-  @apply flex
-        gap-8
-        items-center
-        justify-between;
+  &.menu-direction-vertical {
+    @apply w-full
+      flex
+      flex-col;
 
-  li {
-    a {
-      @apply block
-            hover:opacity-50
-            transition-opacity
-            leading-none;
+    li {
+      @apply mb-2;
+    }
+  }
+
+  &.menu-direction-horizontal {
+    @apply flex
+      items-center
+      justify-between;
+
+    li {
+      @apply mr-8;
+
+      &:last-child {
+        @apply mr-0;
+      }
     }
   }
 }

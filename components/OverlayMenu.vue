@@ -1,30 +1,13 @@
 <template>
   <TransitionFade>
     <div class="overlay">
-      <ul v-if="firstLevel">
-        <li
-          v-for="link of firstLevel"
-          :key="link.id"
-          :title="link.titleContent"
-          v-bind:class="{
-            secondary: link.secondaryMenuItem,
-            'has-children': link.children.length > 0,
-          }"
-        >
-          <LinkChecker
-            :url="link.url"
-            alt="Overlay menu"
-            v-if="link.children.length == 0 && link"
-            :linkType="link.type"
-          >
-            {{ link.titleContent }}
-          </LinkChecker>
-
-          <MenuDropdown :subMenu="link.children" v-else-if="link">
-            {{ link.titleContent }}
-          </MenuDropdown>
-        </li>
-      </ul>
+      <MenuItems
+        class="menu"
+        menuName="menuOverlay"
+        direction="vertical"
+        :showChildren="true"
+        itemClass="menu-overlay-item"
+      />
     </div>
   </TransitionFade>
 </template>
@@ -50,8 +33,17 @@ export default {
   async fetch() {
     try {
       const entries = await this.$graphql.default.request(
-        menuQuery("menuOverlay")
+        menuQuery({
+          menuName: "menuOverlay",
+        }),
+        {
+          siteId: this.$i18n.localeProperties.siteId,
+          navHandle: this.menuName,
+        }
       );
+
+      console.log("entries", entries);
+
       if (entries) {
         this.menu = entries.navigationNodes;
       }
@@ -79,16 +71,18 @@ export default {
     w-full
     bg-dark-500
     text-gray-200
-    h-screen
-    
-    md:hidden;
+    h-screen;
+}
 
-  ul {
-    @apply w-full;
-  }
+.menu {
+  @apply w-full;
+}
+</style>
 
-  li {
-    @apply border-b
+
+<style lang="scss">
+.menu-overlay-item {
+  @apply border-b
       px-4
       w-full
       pb-2
@@ -97,17 +91,9 @@ export default {
       border-opacity-50
       border-gray-200;
 
-    a {
-      @apply transition-opacity
+  a {
+    @apply transition-opacity
         hover:opacity-50;
-    }
-
-    &.secondary {
-      @apply border-none
-        mb-0
-        pb-0
-        text-base;
-    }
   }
 }
 </style>

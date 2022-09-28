@@ -162,9 +162,7 @@ export default {
 
     .hamburger {
       @apply flex
-        items-center
-
-        lg:hidden;
+        items-center;
 
       svg {
         @apply cursor-pointer
