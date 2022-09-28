@@ -13,45 +13,7 @@
 </template>
 
 <script>
-import menuQuery from "~/graphql/queries/globals/menu";
-
-export default {
-  data() {
-    return {
-      menu: null,
-    };
-  },
-
-  computed: {
-    firstLevel() {
-      try {
-        return this.menu.filter((element) => element.level === 1);
-      } catch (error) {}
-    },
-  },
-
-  async fetch() {
-    try {
-      const entries = await this.$graphql.default.request(
-        menuQuery({
-          menuName: "menuOverlay",
-        }),
-        {
-          siteId: this.$i18n.localeProperties.siteId,
-          navHandle: this.menuName,
-        }
-      );
-
-      console.log("entries", entries);
-
-      if (entries) {
-        this.menu = entries.navigationNodes;
-      }
-    } catch {
-      return false;
-    }
-  },
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
