@@ -6,33 +6,32 @@
         :key="element.id"
         class="swiper-slide"
         :content="{
-                    'title': element.title,
-                    'date': element.dateCreated,
-                    'image': element,
-                    'url': element.url,
-                }"
+          title: element.title,
+          date: element.dateCreated,
+          image: element,
+          url: element.url,
+        }"
       />
     </ElementSlider>
   </div>
-  <div
-    v-else
-    class="site-grid two"
-  >
+  <div v-else class="site-grid two">
     <TeaserNews
       v-for="element in elements"
       :key="element.id"
       class="swiper-slide"
       :content="{
-                'title': element.title,
-                'date': element.dateCreated,
-                'image': element,
-                'url': element.url,
-            }"
+        title: element.title,
+        date: element.dateCreated,
+        image: element,
+        url: element.url,
+      }"
     />
   </div>
 </template>
 
 <script>
+import allNews from "../../graphql/queries/block/allNews";
+
 export default {
   props: {
     content: {
@@ -46,7 +45,7 @@ export default {
 
   data() {
     return {
-      seeAll: null,
+      entries: [],
     };
   },
 
@@ -66,7 +65,7 @@ export default {
 
     elements() {
       if (this.content.listFilter == "seeAll") {
-        return this.seeAll.entries;
+        return this.entries;
       } else {
         return this.content.selectNews;
       }
@@ -77,12 +76,20 @@ export default {
     if (this.content.listFilter == "seeAll") {
       let search = {
         section: "news",
-        limit: this.content.elementQuantity ? this.content.elementQuantity : 10,
+        limit: this.content.elementQuantity || 10,
       };
 
       try {
-        this.seeAll = await this.$graphql.default.request(allNews(search));
-      } catch {}
+        const { entries } = await this.$graphql.default.request(
+          allNews(search)
+        );
+
+        this.entries = entries;
+        // this.entires = await this.$graphql.default.request(allNews(search))
+        //   .entries;
+      } catch (err) {
+        console.log("error", err);
+      }
     }
   },
 };

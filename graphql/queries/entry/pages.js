@@ -1,4 +1,4 @@
-import {gql} from 'nuxt-graphql-request';
+import { gql } from 'nuxt-graphql-request';
 
 import seoInfo from '../seo/seoInfo';
 import { dispatchQuery } from '../utils';
