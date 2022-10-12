@@ -15,6 +15,13 @@
 import { entry } from "~/graphql/queries/single/homepage.js";
 
 export default {
+  data() {
+    return {
+      blocks: null,
+      seoInfo: null,
+    };
+  },
+
   async asyncData({ i18n, $graphql }) {
     try {
       const result = await $graphql.default.request(entry(), {

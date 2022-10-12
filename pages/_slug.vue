@@ -10,7 +10,10 @@
       {{ title }}
     </PageHeader>
 
-    <ContentManager class="block" :blocks="blocks" />
+    <ContentManager
+      class="block"
+      :blocks="blocks"
+    />
   </div>
 </template>
 
@@ -21,6 +24,15 @@
 import { entry } from "~/graphql/queries/entry/pages.js";
 
 export default {
+  data() {
+    return {
+      blocks: null,
+      hideTitle: null,
+      title: null,
+      seoInfo: null,
+    };
+  },
+
   async asyncData({ route, i18n, $graphql, store, $getRoutesParams, error }) {
     try {
       const result = await $graphql.default.request(entry(), {

@@ -40,7 +40,10 @@ import { entries } from "~/graphql/queries/entry/news.js";
 export default {
   data() {
     return {
-      content: {},
+      description: null,
+      title: null,
+      teaser: null,
+      seoInfo: null,
     };
   },
 

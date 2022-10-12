@@ -59,6 +59,16 @@
 import { entry } from "~/graphql/queries/entry/news.js";
 
 export default {
+  data() {
+    return {
+      blocks: null,
+      date: null,
+      pageContent: null,
+      title: null,
+      seoInfo: null,
+    };
+  },
+
   computed: {
     castDate() {
       try {
